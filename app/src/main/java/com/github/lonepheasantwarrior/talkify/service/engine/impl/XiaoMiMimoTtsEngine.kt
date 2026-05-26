@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit
  *
  * 引擎 ID：xiaomi-mimo-tts
  * 服务提供商：小米
- * API 文档：https://api.xiaomimimo.com/doc
+ * API 文档：https://platform.xiaomimimo.com/docs/zh-CN/usage-guide/speech-synthesis-v2.5
  */
 class XiaoMiMimoTtsEngine : AbstractTtsEngine() {
 
@@ -50,7 +50,7 @@ class XiaoMiMimoTtsEngine : AbstractTtsEngine() {
         const val ENGINE_NAME = "小米MiMo语音合成"
         private const val VOICE_NAME_SEPARATOR = "::"
         private const val API_URL = "https://api.xiaomimimo.com/v1/chat/completions"
-        private const val MODEL_NAME = "mimo-v2-tts"
+        private const val MODEL_NAME = "mimo-v2.5-tts"
 
         // 文本分块配置
         private const val MAX_TEXT_LENGTH = 300
@@ -422,11 +422,9 @@ class XiaoMiMimoTtsEngine : AbstractTtsEngine() {
         val voiceId = if (config.voiceId.isNotEmpty()) {
             extractRealVoiceName(config.voiceId) ?: config.voiceId
         } else {
-            // 默认声音
-            voiceIds.firstOrNull() ?: "default_en"
+            voiceIds.firstOrNull() ?: "mimo_default"
         }
 
-        // 根据语言选择合适的默认声音
         val effectiveVoice = resolveVoiceForLanguage(voiceId, params.language)
 
         // 构建请求体 - OpenAI Chat Completions 格式
@@ -469,16 +467,14 @@ class XiaoMiMimoTtsEngine : AbstractTtsEngine() {
      * 根据语言解析合适的声音
      */
     private fun resolveVoiceForLanguage(voiceId: String, language: String?): String {
-        // 如果已指定有效声音，直接返回
         if (voiceId.isNotBlank() && voiceIds.contains(voiceId)) {
             return voiceId
         }
 
-        // 根据语言返回默认声音
         return when (language?.lowercase()) {
-            "zh", "zho", "chi", "cn" -> "default_zh"
-            "en", "eng" -> "default_en"
-            else -> voiceId.ifBlank { "default_en" }
+            "zh", "zho", "chi", "cn" -> "冰糖"
+            "en", "eng" -> "Mia"
+            else -> voiceId.ifBlank { "mimo_default" }
         }
     }
 
@@ -639,7 +635,7 @@ class XiaoMiMimoTtsEngine : AbstractTtsEngine() {
         variant: String?,
         currentVoiceId: String?
     ): String {
-        val defaultVoice = voiceIds.firstOrNull() ?: "default_en"
+        val defaultVoice = voiceIds.firstOrNull() ?: "mimo_default"
         if (currentVoiceId != null && currentVoiceId.isNotBlank()) {
             return "$currentVoiceId$VOICE_NAME_SEPARATOR$lang"
         }
