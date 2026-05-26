@@ -8,15 +8,15 @@ plugins {
 android {
     namespace = "com.github.lonepheasantwarrior.talkify"
     compileSdk {
-        version = release(36)
+        version = release(37)
     }
 
     defaultConfig {
         applicationId = "com.github.lonepheasantwarrior.talkify"
         minSdk = 30
-        targetSdk = 36
-        versionCode = 25
-        versionName = "1.0.23"
+        targetSdk = 37
+        versionCode = 26
+        versionName = "1.0.24"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
@@ -35,6 +35,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
