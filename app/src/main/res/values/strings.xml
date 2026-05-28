@@ -138,6 +138,10 @@
     <string name="about_github">开源仓库</string>
     <string name="about_github_url">https://github.com/LonePheasantWarrior/TalkifyTTS</string>
     <string name="about_description">一款基于 Android 的现代化 TTS 引擎应用，连接云端大模型的高质量语音合成能力</string>
+    <string name="about_qq_group">QQ群</string>
+    <string name="about_qq_group_number">1087849270</string>
+    <string name="about_qq_group_note">仅限技术交流，禁止商业推广</string>
+    <string name="about_qq_group_copied">QQ群号已复制到剪贴板</string>
     <string name="about_donate">打赏支持</string>
     <string name="about_donate_description">如果这个项目对你有帮助，欢迎打赏支持</string>
 
